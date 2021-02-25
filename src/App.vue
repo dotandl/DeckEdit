@@ -1,5 +1,26 @@
 <template lang="pug">
 v-app
+  v-dialog(v-model="uploadDialog" max-width="600px")
+    v-card
+      v-card-title
+        p.headline Upload Deck
+
+      v-card-text
+        v-container
+          v-row
+            v-col
+              v-radio-group(v-model="uploadMode")
+                v-radio(label="Merge (add Cards to the current Deck)" :value="0")
+                v-radio(label="Replace (overwrite existing Deck)" :value="1")
+          v-row
+            v-col
+              v-file-input(@change="changeFile($event)" accept=".json" label="Import JSON file")
+
+      v-card-actions
+        v-spacer
+        v-btn(color="green" text @click="upload")
+          | #[v-icon(left) mdi-upload] Upload
+
   v-navigation-drawer.pt-3(app color="green" dark v-model="drawer")
     v-list-item
       v-list-item-content
@@ -26,7 +47,7 @@ v-app
 
       v-divider
 
-      v-list-item
+      v-list-item(@click="uploadDialog = true")
         v-list-item-icon
           v-icon mdi-upload
         v-list-item-content
@@ -55,13 +76,37 @@ v-app
 <script lang="ts">
 import Vue from 'vue'
 import download from './utils/download'
+import upload, { UploadMode } from './utils/upload'
 
 export default Vue.extend({
   name: 'App',
   data: () => ({
     drawer: null,
+    uploadDialog: false,
+    uploadMode: UploadMode.Merge,
+    importedFile: '',
   }),
   methods: {
+    changeFile(e: File) {
+      const reader = new FileReader()
+
+      reader.onload = (fileContents: ProgressEvent<FileReader>) => {
+        const json = fileContents.target?.result
+        this.importedFile = json as string
+      }
+
+      reader.readAsText(e)
+    },
+    upload() {
+      if (this.importedFile === '') {
+        alert('You need to specify a Deck file to upload')
+        this.uploadDialog = false
+        return
+      }
+
+      upload(this.$store, this.importedFile, this.uploadMode)
+      this.uploadDialog = false
+    },
     async download() {
       const json = await this.$store.dispatch('exportJSON')
       download(json, `${this.$store.getters.getWatermark}.json`)

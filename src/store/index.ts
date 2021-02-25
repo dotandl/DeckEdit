@@ -52,8 +52,8 @@ export default new Vuex.Store({
     setDescription(state, description: string) {
       state.description = description
     },
-    addWhiteCard(state) {
-      state.whiteCards.push('')
+    addWhiteCard(state, value = '') {
+      state.whiteCards.push(value)
     },
     removeWhiteCard(state, index: number) {
       state.whiteCards.splice(index, 1)
@@ -61,14 +61,27 @@ export default new Vuex.Store({
     editWhiteCard(state, { index, value }) {
       state.whiteCards[index] = value
     },
-    addBlackCard(state) {
-      state.blackCards.push('')
+    addBlackCard(state, value = '') {
+      state.blackCards.push(value)
     },
     removeBlackCard(state, index: number) {
       state.blackCards.splice(index, 1)
     },
     editBlackCard(state, { index, value }) {
       state.blackCards[index] = value
+    },
+    importJSON(state, json) {
+      state.title = json.name
+      state.description = json.description
+      state.watermark = json.watermark
+
+      state.whiteCards = json.responses.map((c: { text: string[] }) =>
+        c.text.join(' ')
+      )
+
+      state.blackCards = json.calls.map((c: { text: string[] }) =>
+        c.text.join('_')
+      )
     },
   },
   actions: {
@@ -78,7 +91,7 @@ export default new Vuex.Store({
       const json = {
         name: state.title,
         description: state.description,
-        watermark: state.watermark,
+        watermark: state.watermark.toUpperCase(),
         responses: state.whiteCards.map(c => ({ text: c })),
         calls: blackCards.map(c => ({ text: c })),
       }
