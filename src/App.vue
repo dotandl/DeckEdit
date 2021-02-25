@@ -1,21 +1,42 @@
 <template lang="pug">
 v-app
-  v-navigation-drawer(app color="green" dark v-model="drawer")
+  v-navigation-drawer.pt-3(app color="green" dark v-model="drawer")
+    v-list-item
+      v-list-item-content
+        v-list-item-title.title New Deck
+
     v-list(nav)
-      v-list-item-group
-        v-subheader Upload/Download
+      v-list-item(to="/")
+        v-list-item-icon
+          v-icon mdi-cog
+        v-list-item-content
+          v-list-item-title Deck Properties
 
-        v-list-item
-          v-list-item-icon
-            v-icon mdi-upload
-          v-list-item-content
-            v-list-item-title Upload Deck
+      v-list-item
+        v-list-item-icon
+          v-icon mdi-file
+        v-list-item-content
+          v-list-item-title Black Cards
 
-        v-list-item
-          v-list-item-icon
-            v-icon mdi-download
-          v-list-item-content
-            v-list-item-title Download Deck
+      v-list-item
+        v-list-item-icon
+          v-icon mdi-file
+        v-list-item-content
+          v-list-item-title White Cards
+
+      v-divider
+
+      v-list-item
+        v-list-item-icon
+          v-icon mdi-upload
+        v-list-item-content
+          v-list-item-title Upload Deck
+
+      v-list-item
+        v-list-item-icon
+          v-icon mdi-download
+        v-list-item-content
+          v-list-item-title Download Deck
 
   v-app-bar(app color="green" dark)
     v-app-bar-nav-icon(@click="drawer = !drawer")
@@ -26,6 +47,9 @@ v-app
     v-btn(href="https://github.com/dotandl/DeckEdit" target="_blank" text)
       span.mr-2 GitHub
       v-icon mdi-github
+
+  v-main
+    router-view
 </template>
 
 <script lang="ts">
