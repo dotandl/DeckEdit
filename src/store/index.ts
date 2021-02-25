@@ -8,7 +8,14 @@ export default new Vuex.Store({
     title: 'New Deck',
     watermark: '00000',
     description: 'My awesome Deck',
-    whiteCards: [],
+    whiteCards: [
+      'Wpierdolizer.',
+      'Dwa karły srające do wiaderka.',
+      'Kamil.',
+      'Barack Obama.',
+      'Rzut karłem.',
+      'Aleksander Kwaśniewski będący po raz pierwszy w swoim życiu trzeźwy.',
+    ],
     blackCards: [
       'Raz w dupe to nie _.',
       'Czasem lubię udawać że jestem _.',
@@ -28,6 +35,9 @@ export default new Vuex.Store({
     getDescription(state): string {
       return state.description
     },
+    getWhiteCards(state): string[] {
+      return state.whiteCards
+    },
     getBlackCards(state): string[] {
       return state.blackCards
     },
@@ -41,6 +51,15 @@ export default new Vuex.Store({
     },
     setDescription(state, description: string) {
       state.description = description
+    },
+    addWhiteCard(state) {
+      state.whiteCards.push('')
+    },
+    removeWhiteCard(state, index: number) {
+      state.whiteCards.splice(index, 1)
+    },
+    editWhiteCard(state, { index, value }) {
+      state.whiteCards[index] = value
     },
     addBlackCard(state) {
       state.blackCards.push('')

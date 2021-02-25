@@ -13,7 +13,7 @@ div.mx-1
           v-row
             v-col
               v-text-field(
-                v-model="cards[editedCardIndex]"
+                v-model="editedCard.value"
                 label="Card name"
                 @keyup.enter="closeCardEditor")
 
@@ -48,34 +48,43 @@ div.mx-1
 
 <script lang="ts">
 import Vue from 'vue'
+import { mapGetters } from 'vuex'
 
 export default Vue.extend({
   data: () => ({
-    cards: [
-      'Wpierdolizer.',
-      'Dwa karły srające do wiaderka.',
-      'Kamil.',
-      'Barack Obama.',
-      'Rzut karłem.',
-      'Aleksander Kwaśniewski będący po raz pierwszy w swoim życiu trzeźwy.',
-    ],
     dialog: false,
-    editedCardIndex: -1,
+    editedCard: {
+      index: -1,
+      value: '',
+    },
   }),
+  computed: {
+    ...mapGetters({ cards: 'getWhiteCards' }),
+  },
   methods: {
     addCard() {
-      const index = this.cards.push()
-      this.editCard(index)
+      this.$store.commit('addWhiteCard')
+      this.editCard(this.cards.length - 1)
     },
     deleteCard(index: number) {
-      this.cards.splice(index, 1)
+      this.$store.commit('removeWhiteCard', index)
     },
     editCard(index: number) {
-      this.editedCardIndex = index
+      this.editedCard = {
+        index,
+        value: this.cards[index],
+      }
+
       this.dialog = true
     },
     closeCardEditor() {
       this.dialog = false
+      this.$store.commit('editWhiteCard', this.editedCard)
+
+      this.editedCard = {
+        index: -1,
+        value: '',
+      }
     },
   },
 })
