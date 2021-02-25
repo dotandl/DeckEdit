@@ -3,7 +3,7 @@ v-app
   v-navigation-drawer.pt-3(app color="green" dark v-model="drawer")
     v-list-item
       v-list-item-content
-        v-list-item-title.title New Deck
+        v-list-item-title.title {{ $store.state.title }}
 
     v-list(nav)
       v-list-item(to="/")

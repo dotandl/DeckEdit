@@ -6,13 +6,29 @@ v-container.mx-1
 
   v-row
     v-col(:cols="6")
-      v-text-field(label="Title" :rules="rules.common" outlined)
+      v-text-field(
+        :value="getTitle"
+        @input="setTitle"
+        label="Title"
+        :rules="rules.common"
+        outlined)
 
     v-col(:cols="6")
-      v-text-field(label="Watermark" counter="5" :rules="rules.watermark" outlined)
+      v-text-field(
+        :value="getWatermark"
+        @input="setWatermark"
+        label="Watermark"
+        counter="5"
+        :rules="rules.watermark"
+        outlined)
 
     v-col(:cols="12")
-      v-textarea(label="Description" :rules="rules.common" outlined)
+      v-textarea(
+        :value="getDescription"
+        @input="setDescription"
+        label="Description"
+        :rules="rules.common"
+        outlined)
 
   v-row
     v-col
@@ -24,17 +40,24 @@ v-container.mx-1
 
 <script lang="ts">
 import Vue from 'vue'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default Vue.extend({
   data: () => ({
     rules: {
       watermark: [
         (w: string) =>
-          (!!w && w.match(/^[A-Z0-9]{5}$/i)) ||
+          !!w.match(/^[A-Z0-9]{5}$/i) ||
           'Watermark must contain 5 letters and digits',
       ],
       common: [(s: string) => !!s || 'Required'],
     },
   }),
+  computed: {
+    ...mapGetters(['getTitle', 'getWatermark', 'getDescription']),
+  },
+  methods: {
+    ...mapMutations(['setTitle', 'setWatermark', 'setDescription']),
+  },
 })
 </script>
