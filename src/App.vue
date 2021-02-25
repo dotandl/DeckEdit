@@ -12,17 +12,17 @@ v-app
         v-list-item-content
           v-list-item-title Deck Properties
 
-      v-list-item
+      v-list-item(to="/white-cards")
         v-list-item-icon
           v-icon mdi-file
         v-list-item-content
-          v-list-item-title Black Cards
+          v-list-item-title White Cards
 
       v-list-item
         v-list-item-icon
           v-icon mdi-file
         v-list-item-content
-          v-list-item-title White Cards
+          v-list-item-title Black Cards
 
       v-divider
 

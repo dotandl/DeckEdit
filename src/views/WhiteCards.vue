@@ -1,5 +1,5 @@
 <template lang="pug">
-div
+div.mx-1
   v-btn(fab fixed bottom right color="green" dark @click="addCard")
     v-icon mdi-plus
 
@@ -25,7 +25,8 @@ div
 
   v-container
     v-row
-      h1.ma-4 White Cards
+      v-col
+        h1.my-4 White Cards
 
     v-row
       v-col(v-for="card, i in cards" :key="i" :cols="3")
@@ -36,6 +37,14 @@ div
               v-icon mdi-pencil
             v-btn(icon color="red" @click="deleteCard(i)")
               v-icon mdi-delete
+
+    v-row
+      v-col
+        v-btn.mr-1(color="primary" to="/")
+          | #[v-icon(left) mdi-cog] Edit Deck Properties
+
+        v-btn(color="black" dark)
+          | #[v-icon(left) mdi-file] Edit Black Cards
 </template>
 
 <script lang="ts">
