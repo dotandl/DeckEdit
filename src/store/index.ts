@@ -71,6 +71,19 @@ export default new Vuex.Store({
       state.blackCards[index] = value
     },
   },
-  actions: {},
-  modules: {},
+  actions: {
+    exportJSON({ state }): string {
+      const blackCards = state.blackCards.map(c => c.split('_'))
+
+      const json = {
+        name: state.title,
+        description: state.description,
+        watermark: state.watermark,
+        responses: state.whiteCards.map(c => ({ text: c })),
+        calls: blackCards.map(c => ({ text: c })),
+      }
+
+      return JSON.stringify(json)
+    },
+  },
 })

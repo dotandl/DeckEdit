@@ -3,7 +3,7 @@ v-app
   v-navigation-drawer.pt-3(app color="green" dark v-model="drawer")
     v-list-item
       v-list-item-content
-        v-list-item-title.title {{ $store.state.title }}
+        v-list-item-title.title {{ $store.getters.getTitle }}
 
     v-list(nav)
       v-list-item(to="/")
@@ -32,7 +32,7 @@ v-app
         v-list-item-content
           v-list-item-title Upload Deck
 
-      v-list-item
+      v-list-item(@click="download")
         v-list-item-icon
           v-icon mdi-download
         v-list-item-content
@@ -54,11 +54,18 @@ v-app
 
 <script lang="ts">
 import Vue from 'vue'
+import download from './utils/download'
 
 export default Vue.extend({
   name: 'App',
   data: () => ({
     drawer: null,
   }),
+  methods: {
+    async download() {
+      const json = await this.$store.dispatch('exportJSON')
+      download(json, `${this.$store.getters.getWatermark}.json`)
+    },
+  },
 })
 </script>
