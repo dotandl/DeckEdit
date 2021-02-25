@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Properties from '../views/Properties.vue'
 import WhiteCards from '../views/WhiteCards.vue'
+import BlackCards from '../views/BlackCards.vue'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,11 @@ const routes: Array<RouteConfig> = [
     path: '/white-cards',
     name: 'WhiteCards',
     component: WhiteCards,
+  },
+  {
+    path: '/black-cards',
+    name: 'BlakcCards',
+    component: BlackCards,
   },
 ]
 

@@ -42,8 +42,8 @@ div.mx-1
         v-btn.mr-1(color="primary" to="/")
           | #[v-icon(left) mdi-cog] Edit Deck Properties
 
-        v-btn(color="black" dark to="/black-cards")
-          | #[v-icon(left) mdi-file] Edit Black Cards
+        v-btn(color="white" to="/white-cards")
+          | #[v-icon(left) mdi-file] Edit White Cards
 </template>
 
 <script lang="ts">

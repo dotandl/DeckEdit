@@ -18,7 +18,7 @@ v-app
         v-list-item-content
           v-list-item-title White Cards
 
-      v-list-item
+      v-list-item(to="/black-cards")
         v-list-item-icon
           v-icon mdi-file
         v-list-item-content

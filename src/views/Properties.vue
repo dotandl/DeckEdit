@@ -18,7 +18,7 @@ v-container.mx-1
     v-col
       v-btn.mr-1(color="white" to="/white-cards")
         | #[v-icon(left) mdi-file] Edit White Cards
-      v-btn(color="black" dark)
+      v-btn(color="black" dark to="/black-cards")
         | #[v-icon(left) mdi-file] Edit Black Cards
 </template>
 
