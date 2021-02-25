@@ -8,22 +8,8 @@ export default new Vuex.Store({
     title: 'New Deck',
     watermark: '00000',
     description: 'My awesome Deck',
-    whiteCards: [
-      'Wpierdolizer.',
-      'Dwa karły srające do wiaderka.',
-      'Kamil.',
-      'Barack Obama.',
-      'Rzut karłem.',
-      'Aleksander Kwaśniewski będący po raz pierwszy w swoim życiu trzeźwy.',
-    ],
-    blackCards: [
-      'Raz w dupe to nie _.',
-      'Czasem lubię udawać że jestem _.',
-      'Jestem chory na _.',
-      'Nie mogę się rozstać ze swoją kolekcją _.',
-      'To wszystko przez _.',
-      'Może jeszcze _ do tego.',
-    ],
+    whiteCards: ['The biggest, blackest dick.'],
+    blackCards: ["What's that smell? _"],
   },
   getters: {
     getTitle(state): string {
@@ -92,7 +78,7 @@ export default new Vuex.Store({
         name: state.title,
         description: state.description,
         watermark: state.watermark.toUpperCase(),
-        responses: state.whiteCards.map(c => ({ text: c })),
+        responses: state.whiteCards.map(c => ({ text: [c] })),
         calls: blackCards.map(c => ({ text: c })),
       }
 
