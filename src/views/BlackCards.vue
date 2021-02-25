@@ -8,6 +8,9 @@ div.mx-1
       v-card-title
         p.headline Edit Card
 
+      v-card-subtitle
+        | Use #[i _] to indicate the place for the White Card.
+
       v-card-text
         v-container
           v-row
@@ -15,6 +18,7 @@ div.mx-1
               v-text-field(
                 v-model="cards[editedCardIndex]"
                 label="Card name"
+                :rules="rules"
                 @keyup.enter="closeCardEditor")
 
       v-card-actions
@@ -25,11 +29,11 @@ div.mx-1
   v-container
     v-row
       v-col
-        h1.my-4 White Cards
+        h1.my-4 Black Cards
 
     v-row
       v-col(v-for="card, i in cards" :key="i" :cols="3")
-        v-card
+        v-card(color="black" dark)
           v-card-title {{ card }}
           v-card-actions
             v-btn(icon color="primary" @click="editCard(i)")
@@ -52,12 +56,16 @@ import Vue from 'vue'
 export default Vue.extend({
   data: () => ({
     cards: [
-      'Wpierdolizer.',
-      'Dwa karły srające do wiaderka.',
-      'Kamil.',
-      'Barack Obama.',
-      'Rzut karłem.',
-      'Aleksander Kwaśniewski będący po raz pierwszy w swoim życiu trzeźwy.',
+      'Raz w dupe to nie _.',
+      'Czasem lubię udawać że jestem _.',
+      'Jestem chory na _.',
+      'Nie mogę się rozstać ze swoją kolekcją _.',
+      'To wszystko przez _.',
+      'Może jeszcze _ do tego.',
+    ],
+    rules: [
+      (s: string) =>
+        s.includes('_') || "The Black Card's name must contain at least one _",
     ],
     dialog: false,
     editedCardIndex: -1,

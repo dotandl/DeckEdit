@@ -29,7 +29,7 @@ div.mx-1
 
     v-row
       v-col(v-for="card, i in cards" :key="i" :cols="3")
-        v-card
+        v-card(color="white")
           v-card-title {{ card }}
           v-card-actions
             v-btn(icon color="primary" @click="editCard(i)")
