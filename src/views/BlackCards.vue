@@ -16,7 +16,7 @@ div.mx-1
           v-row
             v-col
               v-text-field(
-                v-model="cards[editedCardIndex]"
+                v-model="editedCard.value"
                 label="Card name"
                 :rules="rules"
                 @keyup.enter="closeCardEditor")
@@ -52,38 +52,47 @@ div.mx-1
 
 <script lang="ts">
 import Vue from 'vue'
+import { mapGetters } from 'vuex'
 
 export default Vue.extend({
   data: () => ({
-    cards: [
-      'Raz w dupe to nie _.',
-      'Czasem lubię udawać że jestem _.',
-      'Jestem chory na _.',
-      'Nie mogę się rozstać ze swoją kolekcją _.',
-      'To wszystko przez _.',
-      'Może jeszcze _ do tego.',
-    ],
     rules: [
       (s: string) =>
         s.includes('_') || "The Black Card's name must contain at least one _",
     ],
     dialog: false,
-    editedCardIndex: -1,
+    editedCard: {
+      index: -1,
+      value: '',
+    },
   }),
+  computed: {
+    ...mapGetters({ cards: 'getBlackCards' }),
+  },
   methods: {
     addCard() {
-      const index = this.cards.push()
-      this.editCard(index)
+      this.$store.commit('addBlackCard')
+      this.editCard(this.cards.length - 1)
     },
     deleteCard(index: number) {
-      this.cards.splice(index, 1)
+      this.$store.commit('removeBlackCard', index)
     },
     editCard(index: number) {
-      this.editedCardIndex = index
+      this.editedCard = {
+        index,
+        value: this.cards[index],
+      }
+
       this.dialog = true
     },
     closeCardEditor() {
       this.dialog = false
+      this.$store.commit('editBlackCard', this.editedCard)
+
+      this.editedCard = {
+        index: -1,
+        value: '',
+      }
     },
   },
 })
