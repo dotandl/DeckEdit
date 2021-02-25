@@ -3,6 +3,7 @@ v-container
   h1 Deck Properties
   v-divider.mb-10
 
+  // TODO: title and watermark in one row
   v-text-field(label="Title" :rules="rules.common" outlined)
   v-textarea(label="Description" :rules="rules.common" outlined)
   v-text-field(label="Watermark" counter="5" :rules="rules.watermark" outlined)
