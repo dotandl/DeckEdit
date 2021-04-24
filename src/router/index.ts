@@ -19,7 +19,7 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '/black-cards',
-    name: 'BlakcCards',
+    name: 'BlackCards',
     component: BlackCards,
   },
 ]

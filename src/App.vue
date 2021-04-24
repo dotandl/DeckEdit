@@ -86,6 +86,12 @@ export default Vue.extend({
     uploadMode: UploadMode.Merge,
     importedFile: '',
   }),
+  mounted() {
+    window.addEventListener('beforeunload', e => {
+      e.preventDefault()
+      e.returnValue = ''
+    })
+  },
   methods: {
     changeFile(e: File) {
       const reader = new FileReader()

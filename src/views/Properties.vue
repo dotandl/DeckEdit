@@ -60,7 +60,7 @@ export default Vue.extend({
     ...mapMutations(['setTitle', 'setWatermark', 'setDescription']),
   },
   beforeMount() {
-    document.title = 'Black Cards | DeckEdit'
+    document.title = 'Properties | DeckEdit'
   },
 })
 </script>

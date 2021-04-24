@@ -88,7 +88,7 @@ export default Vue.extend({
     },
   },
   beforeMount() {
-    document.title = 'Black Cards | DeckEdit'
+    document.title = 'White Cards | DeckEdit'
   },
 })
 </script>
