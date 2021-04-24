@@ -56,6 +56,11 @@ export default new Vuex.Store({
     editBlackCard(state, { index, value }) {
       state.blackCards[index] = value
     },
+    updateProperties(state, { title, description, watermark }) {
+      state.title = title
+      state.description = description
+      state.watermark = watermark
+    },
     importJSON(state, json) {
       state.title = json.name
       state.description = json.description

@@ -2,7 +2,8 @@ import { Store } from 'vuex'
 
 export enum UploadMode {
   Merge = 0,
-  Replace = 1,
+  MergeAndReplace = 1,
+  Replace = 2,
 }
 
 export default function(
@@ -21,6 +22,23 @@ export default function(
       for (const blackCard of obj.calls) {
         store.commit('addBlackCard', blackCard.text.join('_'))
       }
+
+      break
+
+    case UploadMode.MergeAndReplace:
+      for (const whiteCard of obj.responses) {
+        store.commit('addWhiteCard', whiteCard.text.join(' '))
+      }
+
+      for (const blackCard of obj.calls) {
+        store.commit('addBlackCard', blackCard.text.join('_'))
+      }
+
+      store.commit('updateProperties', {
+        title: obj.name,
+        description: obj.description,
+        watermark: obj.watermark,
+      })
 
       break
 

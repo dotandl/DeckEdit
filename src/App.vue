@@ -10,8 +10,9 @@ v-app
           v-row
             v-col
               v-radio-group(v-model="uploadMode")
-                v-radio(label="Merge (add Cards to the current Deck)" :value="0")
-                v-radio(label="Replace (overwrite existing Deck)" :value="1")
+                v-radio(label="Merge Cards (add Cards to the current Deck)" :value="0")
+                v-radio(label="Merge Cards & Replace Properties (add Cards to the current Deck and overwrite Deck's properties)" :value="1")
+                v-radio(label="Replace Everything (overwrite the current Deck)" :value="2")
           v-row
             v-col
               v-file-input(@change="changeFile($event)" accept=".json" label="Import JSON file")
