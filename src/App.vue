@@ -66,6 +66,10 @@ v-app
 
     v-spacer
 
+    v-btn(href="#" text @click="toggleDarkMode")
+      span.mr-2 Toggle Dark Mode
+      v-icon mdi-theme-light-dark
+
     v-btn(href="https://github.com/dotandl/DeckEdit" target="_blank" text)
       span.mr-2 GitHub
       v-icon mdi-github
@@ -76,8 +80,10 @@ v-app
 
 <script lang="ts">
 import Vue from 'vue'
+
 import download from './utils/download'
 import upload, { UploadMode } from './utils/upload'
+import { toggleDarkMode } from './utils/darkMode'
 
 export default Vue.extend({
   name: 'App',
@@ -117,6 +123,9 @@ export default Vue.extend({
     async download() {
       const json = await this.$store.dispatch('exportJSON')
       download(json, `${this.$store.getters.getWatermark}.json`)
+    },
+    toggleDarkMode() {
+      toggleDarkMode(this.$vuetify)
     },
   },
 })
