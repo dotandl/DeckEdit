@@ -32,7 +32,7 @@ div.mx-1
         h1.my-4 Black Cards
 
     v-row
-      v-col(v-for="card, i in cards" :key="i" :cols="3")
+      v-col(v-for="card, i in cards" :key="i" :cols="mobile ? 12 : 3")
         v-card(color="black" dark)
           v-card-title {{ card }}
           v-card-actions
@@ -65,6 +65,7 @@ export default Vue.extend({
       index: -1,
       value: '',
     },
+    mobile: false,
   }),
   computed: {
     ...mapGetters({ cards: 'getBlackCards' }),
@@ -97,6 +98,11 @@ export default Vue.extend({
   },
   beforeMount() {
     document.title = 'Black Cards | DeckEdit'
+  },
+  mounted() {
+    const media = window.matchMedia('(max-width: 991px)')
+    this.mobile = media.matches
+    media.addEventListener('change', m => (this.mobile = m.matches))
   },
 })
 </script>

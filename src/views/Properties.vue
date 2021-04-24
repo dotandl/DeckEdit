@@ -5,7 +5,7 @@ v-container.mx-1
       h1.my-4 Deck Properties
 
   v-row
-    v-col(:cols="6")
+    v-col(:cols="mobile ? 12 : 6")
       v-text-field(
         :value="getTitle"
         @input="setTitle"
@@ -13,7 +13,7 @@ v-container.mx-1
         :rules="rules.common"
         outlined)
 
-    v-col(:cols="6")
+    v-col(:cols="mobile ? 12 : 6")
       v-text-field(
         :value="getWatermark"
         @input="setWatermark"
@@ -52,6 +52,7 @@ export default Vue.extend({
       ],
       common: [(s: string) => !!s || 'Required'],
     },
+    mobile: false,
   }),
   computed: {
     ...mapGetters(['getTitle', 'getWatermark', 'getDescription']),
@@ -61,6 +62,11 @@ export default Vue.extend({
   },
   beforeMount() {
     document.title = 'Properties | DeckEdit'
+  },
+  mounted() {
+    const media = window.matchMedia('(max-width: 991px)')
+    this.mobile = media.matches
+    media.addEventListener('change', m => (this.mobile = m.matches))
   },
 })
 </script>
